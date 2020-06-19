@@ -9,14 +9,14 @@ model = load_model('mnist.h5')
 
 def predict_digit(img):
 
-    # resize image to 28x28 pixels
+    # ფოტოს ზომის შეცვა
     img = img.resize((28,28))
 
-    # convert rgb to grayscale
+    # კონვერტაცია
     img = img.convert('L')
     img = np.array(img)
 
-    # reshaping to support our model input and normalizing
+    
     img = img.reshape(1, 28, 28, 1)
     img = img / 255.0
 
@@ -29,7 +29,7 @@ class App(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
         self.x = self.y = 0
-        # Creating elements
+        # ელემენტების შექმნა
         self.canvas = tk.Canvas(self, width=300, height=300, bg="white", cursor="cross")
         self.label = tk.Label(self, text="Thinking..", font=("Helvetica", 48))
         self.classify_btn = tk.Button(self, text="Recognise", command=self.classify_handwriting)
@@ -46,12 +46,9 @@ class App(tk.Tk):
         self.canvas.delete("all")
 
     def classify_handwriting(self):
-        # get the handle of the canvas
         HWND = self.canvas.winfo_id()
         print(HWND)
-        # exit("test")
-        # get the coordinate of the canvas
-        # rect = win32gui.GetWindowRect(HWND)
+        # კორდინატების აღება
 
         im = ImageGrab.grab()
         digit, acc = predict_digit(im)
